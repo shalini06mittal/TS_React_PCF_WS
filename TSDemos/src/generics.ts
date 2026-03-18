@@ -24,9 +24,9 @@ function sort<T=string>(arr:T[]):T[]{
             if(arr[j]! < arr[index]!)
                 index = j
         }
-        let t = arr[i];
-        arr[i] = arr[index];
-        arr[index] = t;
+        let t:T = arr[i]!;
+        arr[i] = arr[index]!;
+        arr[index] = t!;
     }
     return arr;
 }

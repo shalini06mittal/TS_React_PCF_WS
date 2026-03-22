@@ -15,6 +15,8 @@ function App() {
   return (
     <>
       <h1 style={{color:'red'}}>Welcome {username} </h1>
+      <h1 style={{color: '#2563eb', fontSize: '24px' }}>My Portfolio</h1>
+            
       <div>
         <p style={styles}>this is para</p>
       </div>

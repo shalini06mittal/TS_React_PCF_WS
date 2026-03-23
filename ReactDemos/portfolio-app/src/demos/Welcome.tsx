@@ -13,6 +13,7 @@ function Welcome({name, age, email, onSelect}:CustomerProps){
     const colors:string[] = ["red", "blue","purple","yellow"]
     // console.log(props);
     
+    // name = "asldj"
    
     return (
         <div>

@@ -1,8 +1,8 @@
-// import './App.css'
+import './App.css'
 
 import ProfileCard from "./components/ProfileCard"
 
-// import { profiles } from './data/profiles';
+import { profiles } from './data/profiles';
 
 function AppUpdated() {
 
@@ -13,7 +13,7 @@ function AppUpdated() {
   return (
      <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <h1>Portfolio Dashboard</h1>
-      <ProfileCard
+      {/* <ProfileCard
         name="Alex Chen"
         role="Portfolio Manager"
         skills={['Equities', 'Fixed Income', 'ETFs']}
@@ -37,9 +37,9 @@ function AppUpdated() {
         skills={['Algo Trading', 'Python', 'Statistics']}
         bio="Develops data-driven models and algorithms to uncover market insights and optimize trading strategies"
         onSelect={handleSelectManager}
-      /> 
+      />  */}
 
-          {/* {profiles.map(profile => (
+          {profiles.map(profile => (
               <ProfileCard
                     key={profile.id}
                       name={profile.name}
@@ -51,7 +51,7 @@ function AppUpdated() {
                       isActive = {profile.isActive}
                       onSelect={handleSelectManager}
               />
-          ))} */}
+          ))}
       
      
 

@@ -18,7 +18,8 @@
   - [4. JSX basics — single vs multiple tags](#4-jsx-basics--single-vs-multiple-tags)
   - [5. Variables \& functions in a component](#5-variables--functions-in-a-component)
   - [6. Styling](#6-styling)
-  - [7. ProfileCard Component](#7-profilecard-component)
+  - [7. Event Handling in React](#7-event-handling-in-react)
+  - [8. ProfileCard Component](#8-profilecard-component)
   - [8. LISTS IN REACT JSX](#8-lists-in-react-jsx)
 
 ---
@@ -325,8 +326,45 @@ function App() {
 > **Which method to use?** Use **external CSS** for reusable styles, **className** for component-specific rules, and **inline style** sparingly for truly dynamic values (like a bar width based on a percentage).
 
 ---
+## 7. Event Handling in React
 
-## 7. ProfileCard Component
+Inside a component function, you can call functions just like regular Javascript on click of a button. To use them in JSX, wrap them in curly braces `{ }`.
+
+If you want to call convertUpper function since it takes no parameters : just wrap the function name in `{ }`. Do not call the function else it will execute infinitely.
+
+If you want to call formatCurrency on click of the button add a <button> tag and handle the onClick, since it takes parameter, 
+wrap the function call around arrow function. Here when you click the button arrow function gets invoked that internally calls the formatCurrency() function passing the value
+
+**`src/App.tsx`**
+
+```tsx
+function App() {
+  // 1. A plain variable (typed with TypeScript)
+  const portfolioOwner: string = "Alex Chen"
+
+  // 2. A number variable
+  const totalValue: number = 24850.75
+
+  const convertUpper = () =&gt; portfolioOwner.toUpperCase()
+  // 3. A function that formats currency
+  const formatCurrency = (amount: number): string =&gt; {
+    return `$${amount.toLocaleString()}`
+  }
+
+  // ↓ Use {} to embed JS expressions in JSX
+  return (
+    <div>
+      <h1>{portfolioOwner}&apos;s Portfolio</h1>
+      <div> &lt;button onClick={convertUpper}</button></div>
+      <div> Total Value: &lt;button onClick={()=&gt;formatCurrency(totalValue)}</button>
+      </div>
+      <p>Raw number: {totalValue}</p>
+    </div>
+  )
+}
+```
+
+## 8. ProfileCard Component
 
 Creating your first component — ProfileCard
 

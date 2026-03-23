@@ -17,7 +17,7 @@ function App() {
     }
   return (
     <>
-      <Welcome name="Shalini" age={23}
+      {/* <Welcome name="Shalini" age={23}
        email="sh@g.com"
        onSelect={clickHandler}
        />
@@ -28,7 +28,7 @@ function App() {
 
       <Welcome name="Puja" age={34} 
       email="pu@g.com"
-      onSelect={clickHandler}/>
+      onSelect={clickHandler}/> */}
       {/* <h1 style={{color:'red'}}>Welcome {username} </h1>
       <h1 style={{color: '#2563eb', fontSize: '24px' }}>My Portfolio</h1>
             

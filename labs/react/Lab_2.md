@@ -8,15 +8,28 @@ Our `ProfileCard` had all its data hardcoded inside it. That means every card sh
 
 ## Table of Contents
 
-1. [Define Props](#1-define-props)
-2. [Pass Props from App to ProfileCard](#2-pass-props-from-app-to-profilecard)
-3. [Optional Props with Default Values](#3-optional-props-with-default-values)
-4. [Passing Events from ProfileCard up to App](#4-passing-events-from-profilecard-up-to-app)
-5. [Common Mistakes to Watch For](#5-common-mistakes-to-watch-for)
-6. [Refactor for Profile Datasets](#6-refactor-for-profile-datasets)
-7. [Refactor Skills in a Separate Component \[EXTRA\]](#7-refactor-skills-in-a-separate-component-extra)
-8. [Refactor ProfileCard — Styles \[EXTRA\]](#8-refactor-profilecard--styles-extra)
-9. [Update Global Styles](#9-update-global-styles)
+- [Lab 2 — Portfolio Management System](#lab-2--portfolio-management-system)
+  - [Table of Contents](#table-of-contents)
+  - [1. Define Props](#1-define-props)
+    - [Define a Props Type for ProfileCard](#define-a-props-type-for-profilecard)
+  - [2. Pass Props from App to ProfileCard](#2-pass-props-from-app-to-profilecard)
+  - [3. Optional Props with Default Values](#3-optional-props-with-default-values)
+  - [4. Passing Events from ProfileCard up to App](#4-passing-events-from-profilecard-up-to-app)
+    - [Step 1 — Update the props type and component](#step-1--update-the-props-type-and-component)
+    - [Step 2 — Update App.tsx to define the handler and receive the event](#step-2--update-apptsx-to-define-the-handler-and-receive-the-event)
+    - [The Full Data Flow](#the-full-data-flow)
+  - [5. Common Mistakes to Watch For](#5-common-mistakes-to-watch-for)
+  - [6. Refactor for Profile Datasets](#6-refactor-for-profile-datasets)
+    - [Create `src/data/profiles.ts`](#create-srcdataprofilests)
+    - [Update `ProfileCard.tsx` to use the `Profile` type](#update-profilecardtsx-to-use-the-profile-type)
+    - [Update `App.tsx` to fetch data from `profiles.ts`](#update-apptsx-to-fetch-data-from-profilests)
+  - [7. Refactor Skills in a Separate Component \[EXTRA\]](#7-refactor-skills-in-a-separate-component-extra)
+    - [Create `src/components/SkillBadge.tsx`](#create-srccomponentsskillbadgetsx)
+  - [8. Refactor ProfileCard — Styles \[EXTRA\]](#8-refactor-profilecard--styles-extra)
+    - [Create `ProfileCard.module.css`](#create-profilecardmodulecss)
+    - [Rewrite `ProfileCard.tsx` with CSS Module and `SkillBadge`](#rewrite-profilecardtsx-with-css-module-and-skillbadge)
+  - [9. Update Global Styles](#9-update-global-styles)
+    - [Replace `src/App.css` with the following:](#replace-srcappcss-with-the-following)
 
 ---
 
@@ -411,7 +424,6 @@ function App() {
 export default App
 </code></pre>
 
-- `useState` is introduced here just enough to make the example work — it stores which manager was selected so the UI can reflect it. In Lab 3 we'll cover state properly. For now, understand this: `selectedManager` holds the current value, `setSelectedManager` is how you update it.
 - `onSelect={handleSelectManager}` passes the function itself as a prop — no parentheses, no arguments. The component receives the function and decides when to call it (on button click).
 - The `{selectedManager && (...)}` block is a conditional render pattern — if `selectedManager` is null or empty, nothing renders. Once a manager is selected, the green banner appears.
 

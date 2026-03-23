@@ -19,6 +19,13 @@
   - [5. Variables \& functions in a component](#5-variables--functions-in-a-component)
   - [6. Styling](#6-styling)
   - [7. ProfileCard Component](#7-profilecard-component)
+  - [8. LISTS IN REACT JSX](#8-lists-in-react-jsx)
+- [The Problem: JSX Can't Render Arrays Directly](#the-problem-jsx-cant-render-arrays-directly)
+  - [How `.map()` Works in This Context](#how-map-works-in-this-context)
+  - [What Exactly is `key` and Why Does React Need It?](#what-exactly-is-key-and-why-does-react-need-it)
+  - [What Makes a Good Key?](#what-makes-a-good-key)
+  - [What Happens if You Forget `key`?](#what-happens-if-you-forget-key)
+  - [One More Pattern Worth Knowing](#one-more-pattern-worth-knowing)
 
 ---
 
@@ -446,3 +453,149 @@ function App() {
 > 🎯 **What's next**
 >
 > Right now the data is hardcoded inside `ProfileCard`. In the next lab, we'll add **props** so you can pass different names and roles to the same component — making it truly reusable across a whole team of portfolio managers.
+
+
+## 8. LISTS IN REACT JSX
+
+# The Problem: JSX Can't Render Arrays Directly
+
+You might think you could just drop an array into JSX like this:
+
+```tsx
+const skills = ["Equities", "Fixed Income", "ETFs"]
+
+return <div>{skills}</div>
+```
+
+This actually works in a limited way — React will render the strings squished together with no spaces: `EquitiesFixed IncomeETFs`. There's no structure, no styling, no way to treat each item individually. What we really want is to transform each item in the array into its own JSX element. That's exactly what `.map()` does.
+
+---
+
+## How `.map()` Works in This Context
+
+`.map()` is a standard JavaScript array method. It takes every item in an array, runs it through a function you provide, and returns a new array of the results. In JSX, if that result is an array of JSX elements, React knows how to render them one after another.
+
+```tsx
+const skills = ["Equities", "Fixed Income", "ETFs"]
+
+// Plain JavaScript — map returns a new array
+const result = skills.map((skill) => "I know " + skill)
+// result is now: ["I know Equities", "I know Fixed Income", "I know ETFs"]
+```
+
+The same idea in JSX — return a JSX element instead of a string:
+
+```tsx
+{skills.map((skill) => (
+  <span key={skill}>{skill}</span>
+))}
+```
+
+Each call to the arrow function receives one item from the array (`skill`) and returns a `<span>` wrapping it. React receives the resulting array of three `<span>` elements and renders them in order. The parentheses around `(...)` are just for readability when the returned JSX spans multiple lines — they have no functional effect.
+
+---
+
+## What Exactly is `key` and Why Does React Need It?
+
+When React renders a list, it doesn't just paint it on screen and forget about it. Every time your data changes — say a new skill is added, or one is removed — React needs to re-render the list. The question is: **how does React know which item changed?**
+
+Without `key`, React has no way to match the old list against the new one. It falls back to comparing items purely by their position in the array. This causes subtle but serious bugs.
+
+Consider this scenario. You have three skills rendered in order:
+
+```
+Position 0 → "Equities"
+Position 1 → "Fixed Income"
+Position 2 → "ETFs"
+```
+
+Now "Equities" is removed. Without keys, React sees:
+
+```
+Position 0 → "Fixed Income"   (was "Equities" — React thinks this item changed)
+Position 1 → "ETFs"           (was "Fixed Income" — React thinks this changed too)
+Position 2 → nothing          (React deletes the last item)
+```
+
+React updated two items and deleted one, when really only one item was removed. With a stable key on each element, React knows `"the element with key Equities is gone, the others are untouched"` — it removes exactly one DOM node and leaves the rest alone.
+
+---
+
+## What Makes a Good Key?
+
+The key must be **unique among siblings** and **stable across re-renders**. It doesn't need to be globally unique — just unique within that particular list.
+
+<table>
+<thead>
+<tr>
+<th>✅ Good — use the data value itself</th>
+<th>❌ Bad — don't use array index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+```tsx
+// The skill name is unique in this list
+// and doesn't change
+{skills.map((skill) => (
+  <span key={skill}>{skill}</span>
+))}
+```
+
+</td>
+<td>
+
+```tsx
+// index changes when the array order changes
+{skills.map((skill, index) => (
+  <span key={index}>{skill}</span>
+))}
+```
+
+</td>
+</tr>
+</tbody>
+</table>
+
+Using the array index as a key is a common mistake. It looks harmless but breaks down the moment the array is sorted, filtered, or has items inserted in the middle. If "Fixed Income" moves from position `1` to position `0`, its key changes from `1` to `0` — React thinks it's a completely different element.
+
+In our portfolio example, if you later build a sortable skills list and use index as the key, you'll see elements flash or lose their styles during a re-sort because React is treating every position shift as a destruction and recreation of an element.
+
+**The safe rule:** use something that uniquely identifies the data itself, not its position. A name, an ID from a database, a ticker symbol — anything inherent to the item.
+
+---
+
+## What Happens if You Forget `key`?
+
+React will still render the list correctly in most cases, but it will print a warning in the browser console:
+
+```
+Warning: Each child in a list should have a unique "key" prop.
+```
+
+---
+
+## One More Pattern Worth Knowing
+
+Sometimes your array contains objects rather than plain strings. This is more realistic for a real portfolio system:
+
+```tsx
+type Skill = {
+  id: number
+  label: string
+}
+
+const skills: Skill[] = [
+  { id: 1, label: 'Equities' },
+  { id: 2, label: 'Fixed Income' },
+  { id: 3, label: 'ETFs' },
+]
+
+{skills.map((skill) => (
+  <span key={skill.id}>{skill.label}</span>
+))}
+```
+
+Here the `id` field from the data makes the perfect key — it's stable, unique, and has nothing to do with the item's position. This is the pattern you'll use in Lab 3 when we manage a full list of portfolio managers with add and remove functionality.

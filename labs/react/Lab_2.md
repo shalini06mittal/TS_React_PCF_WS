@@ -388,7 +388,7 @@ import ProfileCard from './components/ProfileCard'
 function App() {
 
 <mark>  const handleSelectManager = (name: string) =&gt; {
-    setSelectedManager(name)
+    alert('Profile select'+name);
   }</mark>
 
   return (

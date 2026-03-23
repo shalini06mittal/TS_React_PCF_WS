@@ -4,3 +4,50 @@
   padding: 20px;
   border: 1px solid yellow;
 }
+
+/* src/App.css  — Global layout styles */
+
+/* CSS Custom Properties (theme variables) */
+:root {
+  --color-primary: #0D9488;
+  --color-navy: #1A2B4A;
+  --color-bg: #F0FDFA;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-navy);
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 0.5rem;
+}
+
+.app-header p {
+  color: #64748B;
+  font-size: 1rem;
+}
+
+/* Card grid — responsive */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}

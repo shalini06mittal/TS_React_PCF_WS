@@ -559,7 +559,7 @@ import type { Profile } from '../data/profiles';
 // Omit id since the card doesn't need it
 type ProfileCardProps = Omit<Profile, 'id'>;
 
-**Do comment out the previous type ProfileCardProps we had declared.**
+`Do comment out the previous type ProfileCardProps we had declared.`
 ```
 
 ### Update `App.tsx` to fetch data from `profiles.ts`

@@ -354,7 +354,7 @@ function App() {
   // ↓ Use {} to embed JS expressions in JSX
   return (
     <div>
-      <h1>{portfolioOwner}&apos;s Portfolio</h1>
+      <h1>{portfolioOwner}'s Portfolio</h1>
       <div> <button onClick={convertUpper}</button></div>
       <div> Total Value: <button onClick={()=>formatCurrency(totalValue)}</button>
       </div>

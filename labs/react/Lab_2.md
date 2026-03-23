@@ -28,26 +28,25 @@ Props (short for *properties*) are how a parent component passes data down to a 
 
 Open `src/components/ProfileCard.tsx`. Right now the component takes no arguments. We'll add a TypeScript type that describes what data it should receive. Remove or comment the `const` variables we declared in Lab 1.
 
-```tsx
-// src/components/ProfileCard.tsx
+<pre><code class="language-tsx">// src/components/ProfileCard.tsx
 
-type ProfileCardProps = {        // ← highlighted
-  name: string                   // ← highlighted
-  role: string                   // ← highlighted
-  skills: string[]               // ← highlighted
-  bio: string                    // ← highlighted
-}                                // ← highlighted
+<mark>type ProfileCardProps = {
+  name: string
+  role: string
+  skills: string[]
+  bio: string
+}</mark>
 
-function ProfileCard({ name, role, skills, bio }: ProfileCardProps) {  // ← highlighted
+<mark>function ProfileCard({ name, role, skills, bio }: ProfileCardProps) {</mark>
 
   return (
-    <div style={{ background: '#1e3a5f', borderRadius: '12px', padding: '1.5rem', color: 'white' }}>
-      <h2>{name}</h2>
-      <p>{role}</p>
-      <p>{bio}</p>
-      <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-        {skills.map((skill) => (
-          <span
+    &lt;div style={{ background: '#1e3a5f', borderRadius: '12px', padding: '1.5rem', color: 'white' }}&gt;
+      &lt;h2&gt;{name}&lt;/h2&gt;
+      &lt;p&gt;{role}&lt;/p&gt;
+      &lt;p&gt;{bio}&lt;/p&gt;
+      &lt;div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}&gt;
+        {skills.map((skill) =&gt; (
+          &lt;span
             key={skill}
             style={{
               background: 'rgba(255,255,255,0.1)',
@@ -56,17 +55,17 @@ function ProfileCard({ name, role, skills, bio }: ProfileCardProps) {  // ← hi
               padding: '4px 12px',
               fontSize: '13px',
             }}
-          >
+          &gt;
             {skill}
-          </span>
+          &lt;/span&gt;
         ))}
-      </div>
-    </div>
+      &lt;/div&gt;
+    &lt;/div&gt;
   )
 }
 
 export default ProfileCard
-```
+</code></pre>
 
 Three things happened here:
 
@@ -130,17 +129,16 @@ If you now try `<ProfileCard />` with no attributes at all, TypeScript will imme
 
 Not every prop has to be required. Say we want to optionally show whether a manager is currently active. We mark optional props with `?`.
 
-```tsx
-// src/components/ProfileCard.tsx
+<pre><code class="language-tsx">// src/components/ProfileCard.tsx
 
 type ProfileCardProps = {
   name: string
   role: string
   skills: string[]
   bio: string
-  isActive?: boolean    // ← the ? makes this optional
-  avatarUrl?: string    // ← optional
-  featured?: boolean    // ← optional — defaults to false
+<mark>  isActive?: boolean    // the ? makes this optional
+  avatarUrl?: string    // optional
+  featured?: boolean    // optional — defaults to false</mark>
 }
 
 function ProfileCard({
@@ -148,24 +146,23 @@ function ProfileCard({
   role,
   skills,
   bio,
-  isActive = true,       // ← default value
+<mark>  isActive = true,      // default value
   avatarUrl,
-  featured = false,      // ← default value
+  featured = false,     // default value</mark>
 }: ProfileCardProps) {
 
   return (
-    <div style={{
+    &lt;div style={{
       background: '#1e3a5f',
       borderRadius: '12px',
       padding: '1.5rem',
       color: 'white',
-      border: featured ? '3px groove #cbb78b' : '#fff'  // ← highlighted
-    }}>
+<mark>      border: featured ? '3px groove #cbb78b' : '#fff'</mark>
+    }}&gt;
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>  {/* ← highlighted */}
-
-        {avatarUrl ? (                                           {/* ← highlighted */}
-          <img
+<mark>      &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}&gt;
+        {avatarUrl ? (
+          &lt;img
             src={avatarUrl}
             alt={name}
             style={{
@@ -174,38 +171,35 @@ function ProfileCard({
               objectFit: 'cover',
               border: '2px solid #0D9488',
             }}
-          />
-        ) : (                                                   {/* ← highlighted */}
-          <div style={{
+          /&gt;
+        ) : (
+          &lt;div style={{
             width: '56px', height: '56px',
             borderRadius: '50%',
             background: '#0D9488',
             fontSize: '1rem',
-          }}>
+          }}&gt;
             No image
-          </div>
+          &lt;/div&gt;
         )}
-
-        <h2>{name}</h2>                                         {/* ← highlighted */}
-
-        <span style={{                                          {/* ← highlighted */}
+        &lt;h2&gt;{name}&lt;/h2&gt;
+        &lt;span style={{
           background: isActive ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)',
           color: isActive ? '#86efac' : '#fca5a5',
           borderRadius: '20px',
           padding: '3px 10px',
           fontSize: '12px',
-        }}>
-          {isActive ? 'Active' : 'Inactive'}                   {/* ← highlighted */}
-        </span>
+        }}&gt;
+          {isActive ? 'Active' : 'Inactive'}
+        &lt;/span&gt;
+      &lt;/div&gt;</mark>
 
-      </div>
+      &lt;p&gt;{role}&lt;/p&gt;
+      &lt;p&gt;{bio}&lt;/p&gt;
 
-      <p>{role}</p>
-      <p>{bio}</p>
-
-      <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-        {skills.map((skill) => (
-          <span
+      &lt;div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}&gt;
+        {skills.map((skill) =&gt; (
+          &lt;span
             key={skill}
             style={{
               background: 'rgba(255,255,255,0.1)',
@@ -214,48 +208,47 @@ function ProfileCard({
               padding: '4px 12px',
               fontSize: '13px',
             }}
-          >
+          &gt;
             {skill}
-          </span>
+          &lt;/span&gt;
         ))}
-      </div>
-    </div>
+      &lt;/div&gt;
+    &lt;/div&gt;
   )
 }
 
 export default ProfileCard
-```
+</code></pre>
 
 `isActive = true` in the destructuring sets the default — if the parent doesn't pass `isActive`, it falls back to `true`. The ternary `isActive ? 'Active' : 'Inactive'` is a common JSX pattern for conditional content.
 
 In `App.tsx`, you can now pass it selectively:
 
-```tsx
-<ProfileCard
+<pre><code class="language-tsx">&lt;ProfileCard
   name="Alex Chen"
   role="Portfolio Manager"
   skills={['Equities', 'Fixed Income', 'ETFs']}
   bio="Builds and manages investment portfolios to maximize returns while balancing risk."
-  featured={true}                                  // ← highlighted
-  avatarUrl="https://picsum.photos/200"            // ← highlighted
-/>
+<mark>  featured={true}
+  avatarUrl="https://picsum.photos/200"</mark>
+/&gt;
 
-<ProfileCard
+&lt;ProfileCard
   name="Sara Patel"
   role="Risk Analyst"
   skills={['Derivatives', 'Options', 'Hedging']}
   bio="Identifies, measures, and mitigates financial risks to protect assets and ensure stability."
-  isActive={false}                                 // ← highlighted
-  avatarUrl="https://picsum.photos/200"            // ← highlighted
-/>
+<mark>  isActive={false}
+  avatarUrl="https://picsum.photos/200"</mark>
+/&gt;
 
-<ProfileCard
+&lt;ProfileCard
   name="James Okafor"
   role="Quant Researcher"
   skills={['Algo Trading', 'Python', 'Statistics']}
   bio="Develops data-driven models and algorithms to uncover market insights and optimize trading strategies"
-/>
-```
+/&gt;
+</code></pre>
 
 ---
 
@@ -269,8 +262,7 @@ We'll add a "Select Manager" button to `ProfileCard`. When clicked, it tells `Ap
 
 ### Step 1 — Update the props type and component
 
-```tsx
-// src/components/ProfileCard.tsx
+<pre><code class="language-tsx">// src/components/ProfileCard.tsx
 
 type ProfileCardProps = {
   name: string
@@ -279,7 +271,7 @@ type ProfileCardProps = {
   isActive?: boolean
   avatarUrl?: string
   featured?: boolean
-  onSelect: (name: string) => void  // ← a function prop
+<mark>  onSelect: (name: string) =&gt; void  // a function prop</mark>
 }
 
 function ProfileCard({
@@ -290,48 +282,48 @@ function ProfileCard({
   isActive = true,
   avatarUrl,
   featured = false,
-  onSelect,                          // ← highlighted
+<mark>  onSelect,</mark>
 }: ProfileCardProps) {
 
   return (
-    <div style={{
+    &lt;div style={{
       background: '#1e3a5f',
       borderRadius: '12px',
       padding: '1.5rem',
       color: 'white',
       border: featured ? '3px groove #cbb78b' : '#fff',
-    }}>
+    }}&gt;
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}&gt;
         {avatarUrl ? (
-          <img
+          &lt;img
             src={avatarUrl}
             alt={name}
             style={{ width: '56px', height: '56px', borderRadius: '50%', objectFit: 'cover', border: '2px solid #0D9488' }}
-          />
+          /&gt;
         ) : (
-          <div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#0D9488', fontSize: '1rem' }}>
+          &lt;div style={{ width: '56px', height: '56px', borderRadius: '50%', background: '#0D9488', fontSize: '1rem' }}&gt;
             No image
-          </div>
+          &lt;/div&gt;
         )}
-        <h2>{name}</h2>
-        <span style={{
+        &lt;h2&gt;{name}&lt;/h2&gt;
+        &lt;span style={{
           background: isActive ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)',
           color: isActive ? '#86efac' : '#fca5a5',
           borderRadius: '20px',
           padding: '3px 10px',
           fontSize: '12px',
-        }}>
+        }}&gt;
           {isActive ? 'Active' : 'Inactive'}
-        </span>
-      </div>
+        &lt;/span&gt;
+      &lt;/div&gt;
 
-      <p style={{ marginTop: '4px' }}>{role}</p>
-      <p style={{ marginTop: '4px' }}>{bio}</p>
+      &lt;p style={{ marginTop: '4px' }}&gt;{role}&lt;/p&gt;
+      &lt;p style={{ marginTop: '4px' }}&gt;{bio}&lt;/p&gt;
 
-      <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-        {skills.map((skill) => (
-          <span
+      &lt;div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}&gt;
+        {skills.map((skill) =&gt; (
+          &lt;span
             key={skill}
             style={{
               background: 'rgba(255,255,255,0.1)',
@@ -340,34 +332,34 @@ function ProfileCard({
               padding: '4px 12px',
               fontSize: '13px',
             }}
-          >
+          &gt;
             {skill}
-          </span>
+          &lt;/span&gt;
         ))}
-      </div>
+      &lt;/div&gt;
 
-      <button                                       // ← highlighted
-        onClick={() => onSelect?.(name)}            // ← highlighted
-        style={{                                    // ← highlighted
-          marginTop: '1rem',                        // ← highlighted
-          padding: '8px 16px',                      // ← highlighted
-          borderRadius: '8px',                      // ← highlighted
-          border: 'none',                           // ← highlighted
-          background: 'rgba(255,255,255,0.15)',     // ← highlighted
-          color: 'white',                           // ← highlighted
-          cursor: 'pointer',                        // ← highlighted
-          fontSize: '13px',                         // ← highlighted
-        }}                                          // ← highlighted
-      >                                             // ← highlighted
-        Select Manager                              // ← highlighted
-      </button>                                     // ← highlighted
+<mark>      &lt;button
+        onClick={() =&gt; onSelect?.(name)}
+        style={{
+          marginTop: '1rem',
+          padding: '8px 16px',
+          borderRadius: '8px',
+          border: 'none',
+          background: 'rgba(255,255,255,0.15)',
+          color: 'white',
+          cursor: 'pointer',
+          fontSize: '13px',
+        }}
+      &gt;
+        Select Manager
+      &lt;/button&gt;</mark>
 
-    </div>
+    &lt;/div&gt;
   )
 }
 
 export default ProfileCard
-```
+</code></pre>
 
 The key line is `onSelect: (name: string) => void` in the type. This says: `onSelect` is a function that receives a string and returns nothing. TypeScript enforces this — if you try to pass a function with the wrong signature, it errors immediately.
 
@@ -375,50 +367,49 @@ The key line is `onSelect: (name: string) => void` in the type. This says: `onSe
 
 ### Step 2 — Update App.tsx to define the handler and receive the event
 
-```tsx
-// src/App.tsx
+<pre><code class="language-tsx">// src/App.tsx
 
 import { useState } from 'react'
 import ProfileCard from './components/ProfileCard'
 
 function App() {
 
-  const handleSelectManager = (name: string) => {  // ← highlighted
-    setSelectedManager(name)                        // ← highlighted
-  }                                                 // ← highlighted
+<mark>  const handleSelectManager = (name: string) =&gt; {
+    setSelectedManager(name)
+  }</mark>
 
   return (
-    <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      <h1>Portfolio Dashboard</h1>
+    &lt;div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}&gt;
+      &lt;h1&gt;Portfolio Dashboard&lt;/h1&gt;
 
-      <ProfileCard
+      &lt;ProfileCard
         name="Alex Chen"
         role="Portfolio Manager"
         skills={['Equities', 'Fixed Income', 'ETFs']}
-        onSelect={handleSelectManager}              // ← highlighted
-      />
+<mark>        onSelect={handleSelectManager}</mark>
+      /&gt;
 
-      <ProfileCard
+      &lt;ProfileCard
         name="Sara Patel"
         role="Risk Analyst"
         skills={['Derivatives', 'Options', 'Hedging']}
         isActive={false}
-        onSelect={handleSelectManager}              // ← highlighted
-      />
+<mark>        onSelect={handleSelectManager}</mark>
+      /&gt;
 
-      <ProfileCard
+      &lt;ProfileCard
         name="James Okafor"
         role="Quant Researcher"
         skills={['Algo Trading', 'Python', 'Statistics']}
-        onSelect={handleSelectManager}              // ← highlighted
-      />
+<mark>        onSelect={handleSelectManager}</mark>
+      /&gt;
 
-    </div>
+    &lt;/div&gt;
   )
 }
 
 export default App
-```
+</code></pre>
 
 - `useState` is introduced here just enough to make the example work — it stores which manager was selected so the UI can reflect it. In Lab 3 we'll cover state properly. For now, understand this: `selectedManager` holds the current value, `setSelectedManager` is how you update it.
 - `onSelect={handleSelectManager}` passes the function itself as a prop — no parentheses, no arguments. The component receives the function and decides when to call it (on button click).

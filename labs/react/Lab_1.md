@@ -20,12 +20,6 @@
   - [6. Styling](#6-styling)
   - [7. ProfileCard Component](#7-profilecard-component)
   - [8. LISTS IN REACT JSX](#8-lists-in-react-jsx)
-- [The Problem: JSX Can't Render Arrays Directly](#the-problem-jsx-cant-render-arrays-directly)
-  - [How `.map()` Works in This Context](#how-map-works-in-this-context)
-  - [What Exactly is `key` and Why Does React Need It?](#what-exactly-is-key-and-why-does-react-need-it)
-  - [What Makes a Good Key?](#what-makes-a-good-key)
-  - [What Happens if You Forget `key`?](#what-happens-if-you-forget-key)
-  - [One More Pattern Worth Knowing](#one-more-pattern-worth-knowing)
 
 ---
 
@@ -457,7 +451,7 @@ function App() {
 
 ## 8. LISTS IN REACT JSX
 
-# The Problem: JSX Can't Render Arrays Directly
+The Problem: JSX Can't Render Arrays Directly
 
 You might think you could just drop an array into JSX like this:
 
@@ -471,7 +465,7 @@ This actually works in a limited way — React will render the strings squished 
 
 ---
 
-## How `.map()` Works in This Context
+How `.map()` Works in This Context
 
 `.map()` is a standard JavaScript array method. It takes every item in an array, runs it through a function you provide, and returns a new array of the results. In JSX, if that result is an array of JSX elements, React knows how to render them one after another.
 
@@ -495,7 +489,7 @@ Each call to the arrow function receives one item from the array (`skill`) and r
 
 ---
 
-## What Exactly is `key` and Why Does React Need It?
+What Exactly is `key` and Why Does React Need It?
 
 When React renders a list, it doesn't just paint it on screen and forget about it. Every time your data changes — say a new skill is added, or one is removed — React needs to re-render the list. The question is: **how does React know which item changed?**
 
@@ -521,7 +515,7 @@ React updated two items and deleted one, when really only one item was removed. 
 
 ---
 
-## What Makes a Good Key?
+What Makes a Good Key?
 
 The key must be **unique among siblings** and **stable across re-renders**. It doesn't need to be globally unique — just unique within that particular list.
 
@@ -567,7 +561,7 @@ In our portfolio example, if you later build a sortable skills list and use inde
 
 ---
 
-## What Happens if You Forget `key`?
+What Happens if You Forget `key`?
 
 React will still render the list correctly in most cases, but it will print a warning in the browser console:
 
@@ -577,7 +571,7 @@ Warning: Each child in a list should have a unique "key" prop.
 
 ---
 
-## One More Pattern Worth Knowing
+One More Pattern Worth Knowing
 
 Sometimes your array contains objects rather than plain strings. This is more realistic for a real portfolio system:
 

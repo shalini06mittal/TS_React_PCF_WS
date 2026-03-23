@@ -281,6 +281,7 @@ type ProfileCardProps = {
   name: string
   role: string
   skills: string[]
+  bio:string
   isActive?: boolean
   avatarUrl?: string
   featured?: boolean

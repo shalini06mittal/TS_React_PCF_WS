@@ -20,7 +20,7 @@
   - [6. Styling](#6-styling)
   - [7. Event Handling in React](#7-event-handling-in-react)
   - [8. ProfileCard Component](#8-profilecard-component)
-  - [8. LISTS IN REACT JSX](#8-lists-in-react-jsx)
+  - [9. LISTS IN REACT JSX](#9-lists-in-react-jsx)
 
 ---
 
@@ -345,9 +345,9 @@ function App() {
   // 2. A number variable
   const totalValue: number = 24850.75
 
-  const convertUpper = () =&gt; portfolioOwner.toUpperCase()
+  const convertUpper = () => portfolioOwner.toUpperCase()
   // 3. A function that formats currency
-  const formatCurrency = (amount: number): string =&gt; {
+  const formatCurrency = (amount: number): string => {
     return `$${amount.toLocaleString()}`
   }
 
@@ -355,8 +355,8 @@ function App() {
   return (
     <div>
       <h1>{portfolioOwner}&apos;s Portfolio</h1>
-      <div> &lt;button onClick={convertUpper}</button></div>
-      <div> Total Value: &lt;button onClick={()=&gt;formatCurrency(totalValue)}</button>
+      <div> <button onClick={convertUpper}</button></div>
+      <div> Total Value: <button onClick={()=>formatCurrency(totalValue)}</button>
       </div>
       <p>Raw number: {totalValue}</p>
     </div>
@@ -487,7 +487,7 @@ function App() {
 > Right now the data is hardcoded inside `ProfileCard`. In the next lab, we'll add **props** so you can pass different names and roles to the same component — making it truly reusable across a whole team of portfolio managers.
 
 
-## 8. LISTS IN REACT JSX
+## 9. LISTS IN REACT JSX
 
 The Problem: JSX Can't Render Arrays Directly
 

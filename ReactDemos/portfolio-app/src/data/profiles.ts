@@ -91,7 +91,7 @@ export interface Toggleable{
     holdings: Holding[] | undefined
   }
 
-  export const holdings:PortfolioSummaryProps[] = [
+  export const portfolioHoldings:PortfolioSummaryProps[] = [
                {ownerName: "Ananya Iyer", holdings: [
                         { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
                         { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },

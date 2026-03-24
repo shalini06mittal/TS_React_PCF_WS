@@ -442,7 +442,7 @@ We will now build a component that did not exist in the previous labs. `Portfoli
     holdings: Holding[] | undefined
   }
 
-  export const holdings:PortfolioSummaryProps[] = [
+  export const portfolioHoldings:PortfolioSummaryProps[] = [
                {ownerName: "Ananya Iyer", holdings: [
                         { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
                         { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },
@@ -624,20 +624,20 @@ Now wire <mark>PortfolioSummary</mark> into <mark>App.tsx</mark> alongside the e
 
 <pre><code class="language-tsx">import { useState } from 'react'
 import ProfileCard from './components/ProfileCard';
-import { profiles, type Holding, holdings } from './data/profiles';
+import { profiles, type Holding, portfolioHoldings } from './data/profiles';
 import PortfolioSummary from "./components/PortfolioSummary";
 
 function App() {
 
   const [selectedManager, setSelectedManager] = useState&lt;string | null&gt;(null)
-  const [ownerHoldings, setOwnerHoldings] = useState<Holding[] | undefined>([])
+  const [holdings, setHoldings] = useState<Holding[] | undefined>([])
   
   const handleSelectManager = (name: string) => {
     // alert(`Manager selected ${name}`)
     setSelectedManager(name); // remove alert
-     const data:Holding[] | undefined =  holdings.find(owner => owner.ownerName === name)?.holdings;
+     const data:Holding[] | undefined =  portfolioHoldings.find(owner => owner.ownerName === name)?.holdings;
     console.log(data);
-    setOwnerHoldings(data)
+    setHoldings(data)
   }
 
   return (
@@ -671,7 +671,7 @@ function App() {
        {selectedManager  &amp;&amp; (
             &lt;PortfolioSummary
               ownerName={selectedManager}
-              holdings={ownerHoldings}
+              holdings={holdings}
               onClose={() => setSelectedManager(null)}
             /&gt;
           )}

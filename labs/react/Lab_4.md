@@ -274,6 +274,68 @@ function LiveClock() {
 
 **Mount:** the interval starts. **Update:** every second `setTime` triggers a re-render showing the new time. **Unmount:** when `LiveClock` is removed from the DOM, `clearInterval` stops the timer. Nothing leaks.
 
+## 7. Another useEffect example and how it differs from LiveClock
+
+Here is a single component that demonstrates useEffect variation and why it works the way it works:
+
+```tsx
+import { useEffect, useState } from "react"
+
+export default function Timer() {
+
+  const [tick, setTick] = useState<number>(0);
+// mount
+// empty array specifies useEffect is called only the first time component mounts
+  useEffect(()=>{
+        const id = setInterval(() => {
+          setTick(prev => prev+1);
+      }, 1000);
+
+      // component unmounts => clear the interval
+      return () => {
+        console.log('cleaning');
+        clearInterval(id)
+      }
+  },[])
+ 
+  // So we can have more than 1 useEffect in a component. Below useEffect runs for every update in the tick state. 
+   useEffect(()=>{
+        console.log('tick',tick);
+
+   },[tick]); // dependency array to call useEffect, state or props change
+  
+  return (
+    <div>
+        Tick : {tick}
+    </div>
+  )
+}
+```
+
+Here if you run this code, you will see tick updates with a step of 2. So 0, 2, 4, 6, 8 etc..
+Since the previous component LiveClock was not dependent on the previous state and was updating the state with a fresh value 
+the UI was not inconsistent and seconds were increasing with a delay of exactly 1 second.
+Even if React runs it twice, you're setting the same value, not incrementing.
+
+What happens in Strict Mode?
+
+Strict Mode causes:
+
+double render
+double effect cycle (mount → cleanup → mount)
+
+So you see:
+
+0 → 2 → 4 → 6 ❗
+Solutioon 1: Ignore
+Solution 2: Run below commands to see the output as expected:
+npm run build
+npm run preview
+
+Mental Model        (Very Important)
+Type of update	    Behavior in Strict Mode
+prev => prev + 1	  ❗ accumulates twice
+set(value)	        ✅ idempotent (same result)
 ---
 
 # PART B

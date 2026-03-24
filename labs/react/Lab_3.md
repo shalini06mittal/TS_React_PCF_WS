@@ -671,7 +671,7 @@ function App() {
        {selectedManager  &amp;&amp; (
             &lt;PortfolioSummary
               ownerName={selectedManager}
-              holdings={holdings}
+              holdings={ownerHoldings}
               onClose={() => setSelectedManager(null)}
             /&gt;
           )}

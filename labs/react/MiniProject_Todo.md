@@ -8,6 +8,10 @@
 
 ---
 
+## Table of Contents
+1. [The Todo Interface + Dummy Data](#1-the-todo-interface+dummy-data)
+2. [Props — The TodoItem Component][#2-props--the-todoitem-component]
+
 | Step | Concept | What you build |
 |---|---|---|
 | **1** | **Interface + dummy data** | Define the Todo type and seed data |
@@ -218,10 +222,10 @@ import TodoList from './components/TodoList'
 
 function App() {
   return (
-    <div style={{ maxWidth: "600px", margin: "2rem auto", padding: "0 1rem" }}>
-      <h1>My Todos</h1>
-      <mark><TodoList /></mark>
-    </div>
+    &lt;div style={{ maxWidth: "600px", margin: "2rem auto", padding: "0 1rem" }}&gt;
+&lt;h1&gt;My Todos&lt;/h1&gt;
+      <mark> &lt;TodoList /&gt;</mark>
+    &lt;/div&gt;
   )
 }
 

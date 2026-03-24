@@ -426,22 +426,23 @@ We will now build a component that did not exist in the previous labs. `Portfoli
 <b>Update</b> data/profiles.ts and add below code in the last
 
 ```tsx
+  export interface Toggleable{
+ onClose: () => void;
+}
+
   export type Holding = {
-    ownerName:string|null, holdings:{
     ticker: string
     name: string
     value: number
     change: number  // percentage, can be negative
-  }[]
   }
 
   export type PortfolioSummaryProps = {
     ownerName: string
-    holdings: Holding[]
-    onClose: () => void;
+    holdings: Holding[] | undefined
   }
 
-  export const holdings:Holding[] = [
+  export const holdings:PortfolioSummaryProps[] = [
                {ownerName: "Ananya Iyer", holdings: [
                         { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
                         { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },
@@ -521,21 +522,20 @@ Create a new file: <mark>src/components/PortfolioSummary.tsx</mark>
 
 ```tsx
 import { useState } from 'react'
-import type { PortfolioSummaryProps } from '../data/profiles';
+import type { Holding, PortfolioSummaryProps,  Toggleable } from '../data/profiles';
 
 import './PortfolioSummary.css'
 
-
-function PortfolioSummary({ ownerName, holdings , onClose}: PortfolioSummaryProps) {
+type Props = PortfolioSummaryProps & Toggleable
+function PortfolioSummary({ ownerName, holdings, onClose }: Props) {
 
   // State 1: are the holdings expanded or collapsed?
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
-
-  const ownerHoldings = holdings.find(owner => owner.ownerName === ownerName)?.holdings;
-  
+ 
 
   // Derived value (not state) — computed from holdings on every render
-  const totalValue = ownerHoldings?.reduce((sum, h) => sum + h.value, 0)
+  const totalValue = holdings?.reduce((sum, h) => sum + h.value, 0)
+  // Derived value (not state) — computed from holdings on every render
 
   return (
      <>
@@ -571,7 +571,7 @@ function PortfolioSummary({ ownerName, holdings , onClose}: PortfolioSummaryProp
 
         {isExpanded && (
           <div style={{ marginTop: "1rem" }}>
-            {ownerHoldings?.map((holding) => (
+            {holdings?.map((holding) => (
               <div
                 key={holding.ticker}
                 style={{
@@ -605,6 +605,7 @@ function PortfolioSummary({ ownerName, holdings , onClose}: PortfolioSummaryProp
   )
 }
 
+
 export default PortfolioSummary
 ```
 
@@ -629,7 +630,15 @@ import PortfolioSummary from "./components/PortfolioSummary";
 function App() {
 
   const [selectedManager, setSelectedManager] = useState&lt;string | null&gt;(null)
-
+  const [ownerHoldings, setOwnerHoldings] = useState<Holding[] | undefined>([])
+  
+  const handleSelectManager = (name: string) => {
+    // alert(`Manager selected ${name}`)
+    setSelectedManager(name); // remove alert
+     const data:Holding[] | undefined =  holdings.find(owner => owner.ownerName === name)?.holdings;
+    console.log(data);
+    setOwnerHoldings(data)
+  }
 
   return (
     &lt;div style={{ padding: "2rem", maxWidth: "680px", margin: "0 auto" }}&gt;
@@ -653,11 +662,11 @@ function App() {
           avatarUrl={profile.avatarUrl}
           featured={profile.featured}
           isActive={profile.isActive}
-<mark>          onSelect={setSelectedManager}</mark>
+<mark>          onSelect={handleSelectManager}</mark>
         /&gt;
       ))}
 
-<mark>      {/* Only show summary when Alex is selected */}
+<mark>      {/* show summary when owner is selected */}
 
        {selectedManager  &amp;&amp; (
             &lt;PortfolioSummary
@@ -672,8 +681,6 @@ function App() {
   )
 }
 </code></pre>
-
-Notice <mark>onSelect={setSelectedManager}</mark> passes the setter function directly as a prop instead of wrapping it in a named handler. This is a valid shortcut when the prop signature matches the setter signature exactly — both accept a <mark>string</mark>.
 
 ---
 

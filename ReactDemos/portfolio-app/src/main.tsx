@@ -6,6 +6,6 @@ import AppUpdated from './AppUpdated.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <AppUpdated />
+    <App />
   </StrictMode>,
 )

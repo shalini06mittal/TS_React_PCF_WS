@@ -10,6 +10,7 @@ export interface Profile {
   onSelect?: (name: string) => void   // a function prop
 }
 
+
 export const profiles: Profile[] = [
    {
     id: 1,
@@ -73,3 +74,38 @@ export const profiles: Profile[] = [
     avatarUrl:`https://api.dicebear.com/9.x/adventurer/svg?seed=6`
   }
 ];
+
+export interface Toggleable{
+ onClose: () => void;
+}
+
+  export type Holding = {
+    ticker: string
+    name: string
+    value: number
+    change: number  // percentage, can be negative
+  }
+
+  export type PortfolioSummaryProps = {
+    ownerName: string
+    holdings: Holding[] | undefined
+  }
+
+  export const holdings:PortfolioSummaryProps[] = [
+               {ownerName: "Ananya Iyer", holdings: [
+                        { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
+                        { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },
+                        { ticker: "NVDA", name: "Nvidia",     value: 4200,  change:  2.1 }
+                      ]},
+                {ownerName: "Alex Chan", holdings:[
+                      { ticker: "MSFT", name: "Microsoft", value: 6500,  change: -0.8 },
+                      { ticker: "NVDA", name: "Apple",     value: 4200,  change:  1.4 },
+                      { ticker: "TCS", name: "Tata",     value: 5200,  change:  2.3 },
+                      { ticker: "RELIANCE", name: "Reliance",     value: 5400,  change:  2.5 },
+                ]},
+                {ownerName: "Riya Mehta", holdings:[
+                      { ticker: "INFY", name: "Infosys",    value: 10550, change:  5.2 },
+                      { ticker: "AAPL", name: "Apple",     value: 6700,  change:  2.2},
+                      { ticker: "GOOG", name: "GOOGLE",     value: 5500,  change:  -0.5 }
+                ]},
+          ]

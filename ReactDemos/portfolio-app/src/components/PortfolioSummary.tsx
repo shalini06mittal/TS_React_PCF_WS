@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import type { Holding, PortfolioSummaryProps,  Toggleable } from '../data/profiles';
+import { useState } from 'react'
+import type { PortfolioSummaryProps,  Toggleable } from '../data/profiles';
 
 import './PortfolioSummary.css'
 

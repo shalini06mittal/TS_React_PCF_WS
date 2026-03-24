@@ -8,10 +8,6 @@
 
 ---
 
-## Table of Contents
-1. [The Todo Interface + Dummy Data](#1-the-todo-interface+dummy-data)
-2. [Props — The TodoItem Component][#2-props--the-todoitem-component]
-
 | Step | Concept | What you build |
 |---|---|---|
 | **1** | **Interface + dummy data** | Define the Todo type and seed data |
@@ -214,7 +210,8 @@ export default TodoList
 
 ### Update App.tsx to use TodoList
 
-<b>Comment out the  `<TodoItem todo={dummyTodos[0]}/>`</b> in App.tsx
+<b>Comment out the  `<TodoItem todo={dummyTodos[0]}/>`</b> in App.tsx file
+
 ```tsx
 // src/App.tsx
 
@@ -222,10 +219,10 @@ import TodoList from './components/TodoList'
 
 function App() {
   return (
-    &lt;div style={{ maxWidth: "600px", margin: "2rem auto", padding: "0 1rem" }}&gt;
-&lt;h1&gt;My Todos&lt;/h1&gt;
-      <mark> &lt;TodoList /&gt;</mark>
-    &lt;/div&gt;
+    <div style={{ maxWidth: "600px", margin: "2rem auto", padding: "0 1rem" }}>
+      <h1>My Todos</h1>
+      <TodoList />
+    </div>
   )
 }
 
@@ -319,8 +316,7 @@ import TodoItem from './TodoItem'
 
 function TodoList() {
 
-<mark>//   const [todos, setTodos] = useState<Todo[]>(dummyTodos)<mark>
-<mark>  const [todos,     setTodos]     = useState<Todo[]>([])
+  const [todos,     setTodos]     = useState<Todo[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error,     setError]     = useState<string | null>(null)
 
@@ -348,7 +344,7 @@ function TodoList() {
   // Render: show different UI for each state
   if (isLoading) return <p>Loading tasks...</p>
   if (error)     return <p style={{ color: "red" }}>{error}</p>
-</mark>
+
   return (
     <div>
       <h2>Tasks ({todos.length})</h2>
@@ -521,7 +517,7 @@ This function lives in <mark>TodoList</mark> because that is where the <mark>tod
 
 ```tsx
 // Inside TodoList — the addTodo function
-<mark>
+
 const addTodo = (text: string) => {
   const newTodo: Todo = {
     id:        Date.now(),  // simple unique id: current timestamp as number
@@ -532,7 +528,7 @@ const addTodo = (text: string) => {
 
   // Spread the existing array and append the new todo at the end
   setTodos([...todos, newTodo])
-}</mark>
+}
 ```
 
 **`...todos`** is the spread operator. <mark>[...todos, newTodo]</mark> creates a brand new array containing all existing todos plus the new one. We never `push()` into the existing array — React requires a new array reference to detect that state changed.
@@ -546,7 +542,7 @@ import { useState, useEffect } from 'react'
 import type { Todo } from '../types/todo'
 import { dummyTodos } from '../data/todos'
 import TodoItem from './TodoItem'
-<mark>import AddTodoForm from './AddTodoForm'</mark>
+import AddTodoForm from './AddTodoForm'
 
 function TodoList() {
 
@@ -578,7 +574,7 @@ function TodoList() {
 
   return (
     <div>
-      <mark><AddTodoForm onAdd={addTodo} /></mark>
+      <AddTodoForm onAdd={addTodo} />
       <h2>Tasks ({todos.length})</h2>
       {todos.length === 0 && (
         <p style={{ color:"#94a3b8" }}>No tasks yet. Add one above.</p>
@@ -617,12 +613,12 @@ import type { Todo } from '../types/todo'
 
 interface TodoItemProps {
   todo:     Todo
-  <mark>onDelete: (id: number) => void  // new prop</mark>
+  onDelete: (id: number) => void  // new prop
 }
 
-function TodoItem({ todo, <mark>onDelete</mark> }: TodoItemProps) {
+function TodoItem({ todo, onDelete }: TodoItemProps) {
   return (
-   <mark> <div style={{
+    <div style={{
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -644,10 +640,10 @@ function TodoItem({ todo, <mark>onDelete</mark> }: TodoItemProps) {
         <p style={{ margin:0, fontSize:"12px", color:"#94a3b8" }}>
           Created: {todo.createdAt.toLocaleDateString()}
         </p>
-      </div></mark>
+      </div>
 
       {/* Delete button — calls onDelete with this todo id */}
-    <mark>  <button
+      <button
         onClick={() => onDelete(todo.id)}
         style={{
           border: "none",
@@ -659,7 +655,7 @@ function TodoItem({ todo, <mark>onDelete</mark> }: TodoItemProps) {
         }}
       >
         ✕
-      </button></mark>
+      </button>
     </div>
   )
 }
@@ -674,16 +670,16 @@ Add the <mark>deleteTodo</mark> function and pass it as a prop to each <mark>Tod
 ```tsx
 // Inside TodoList — the deleteTodo function
 
-<mark>const deleteTodo = (id: number) => {
+const deleteTodo = (id: number) => {
   // filter returns a NEW array with every todo EXCEPT the one with this id
   setTodos(todos.filter((todo) => todo.id !== id))
-}</mark>
+}
 
 // In the map:
 <TodoItem
   key={todo.id}
   todo={todo}
- <mark> onDelete={deleteTodo}</mark>
+  onDelete={deleteTodo}
 />
 ```
 
@@ -708,10 +704,10 @@ import type { Todo } from '../types/todo'
 interface TodoItemProps {
   todo:     Todo
   onDelete: (id: number) => void
-  <mark>onToggle: (id: number) => void  // new prop</mark>
+  onToggle: (id: number) => void  // new prop
 }
 
-function TodoItem({ todo, onDelete, <mark>onToggle</mark> }: TodoItemProps) {
+function TodoItem({ todo, onDelete, onToggle }: TodoItemProps) {
   return (
     <div style={{
       display: "flex",
@@ -725,12 +721,12 @@ function TodoItem({ todo, onDelete, <mark>onToggle</mark> }: TodoItemProps) {
     }}>
 
       {/* Checkbox — clicking it calls onToggle */}
-     <mark> <input
+      <input
         type="checkbox"
         checked={todo.done}
         onChange={() => onToggle(todo.id)}
         style={{ width:"18px", height:"18px", cursor:"pointer", accentColor:"#0D9488" }}
-      /></mark>
+      />
 
       <div style={{ flex: 1 }}>
         <p
@@ -771,7 +767,7 @@ export default TodoItem
 ```tsx
 // Inside TodoList — the toggleTodo function
 
-<mark>const toggleTodo = (id: number) => {
+const toggleTodo = (id: number) => {
   setTodos(
     todos.map((todo) =>
       todo.id === id
@@ -779,14 +775,14 @@ export default TodoItem
         : todo                           // all others: unchanged
     )
   )
-}</mark>
+}
 
 // In the map:
 <TodoItem
   key={todo.id}
   todo={todo}
   onDelete={deleteTodo}
-  <mark>onToggle={toggleTodo}</mark>
+  onToggle={toggleTodo}
 />
 ```
 
@@ -812,7 +808,7 @@ When the page loads, the text input should already be focused so the user can st
 ```tsx
 // src/components/AddTodoForm.tsx — updated with useRef
 
-import { useState, useEffect, <mark>useRef</mark> } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 interface AddTodoFormProps {
   onAdd: (text: string) => void
@@ -823,20 +819,19 @@ function AddTodoForm({ onAdd }: AddTodoFormProps) {
   const [text, setText] = useState<string>("")
 
   // 1. Create the ref — starts as null, will point to the <input> DOM node
-  <mark>const inputRef = useRef<HTMLInputElement>(null)</mark>
+  const inputRef = useRef<HTMLInputElement>(null)
 
   // 2. After mount, focus the input
-  <mark>
   useEffect(() => {
     inputRef.current?.focus()  // ?. safely handles the null case
-  }, [])  // [] = run once on mount</mark>
+  }, [])  // [] = run once on mount
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!text.trim()) return
     onAdd(text.trim())
     setText("")
-   <mark> inputRef.current?.focus()  // re-focus after submit so user can type next task</mark>
+    inputRef.current?.focus()  // re-focus after submit so user can type next task
   }
 
   return (
@@ -845,7 +840,7 @@ function AddTodoForm({ onAdd }: AddTodoFormProps) {
       style={{ display:"flex", gap:"8px", marginBottom:"1.5rem" }}
     >
       <input
-        <mark>ref={inputRef}                </mark>           // 3. Attach ref to the DOM node
+        ref={inputRef}                           // 3. Attach ref to the DOM node
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -888,9 +883,9 @@ function TodoList() {
   const [error,     setError]     = useState<string | null>(null)
 
   // Render counter — persists across renders, does not cause them
- <mark> const renderCount = useRef<number>(0)
+  const renderCount = useRef<number>(0)
   renderCount.current += 1  // increment on every render, no re-render triggered
-</mark>
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setTodos(dummyTodos)
@@ -909,9 +904,9 @@ function TodoList() {
   return (
     <div>
       {/* Render counter — only visible in dev, helps understand React */}
-   <mark>   <p style={{ fontSize:"11px", color:"#cbd5e1", textAlign:"right" }}>
+      <p style={{ fontSize:"11px", color:"#cbd5e1", textAlign:"right" }}>
         renders: {renderCount.current}
-      </p></mark>
+      </p>
 
       <AddTodoForm onAdd={addTodo} />
       <h2>Tasks ({todos.length})</h2>

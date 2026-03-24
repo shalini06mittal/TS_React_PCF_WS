@@ -775,6 +775,7 @@ function ProfileCard({
   avatarUrl,
   isActive = true,
   featured = false,  // default prop value
+  onSelect
 }: ProfileCardProps) {
 
   // Derive initials for avatar placeholder
@@ -823,7 +824,22 @@ function ProfileCard({
           <SkillBadge key={skill} label={skill} />
         ))}
       </div>
-
+       <button
+        onClick={() => onSelect?.(name)}
+        style={{
+          marginTop: '1rem',
+          padding: '8px 16px',
+          borderRadius: '8px',
+          border: 'none',
+          background: 'rgba(13, 148, 136,0.6)',
+          color: 'white',
+          cursor: 'pointer',
+          fontSize: '13px',
+          width:'15%'
+        }}
+      >
+        Select Manager
+      </button>
     </div>
   );
 }

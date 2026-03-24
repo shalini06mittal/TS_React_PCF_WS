@@ -423,76 +423,185 @@ The initial value <mark>null</mark> means nothing is selected. <mark>string | nu
 
 We will now build a component that did not exist in the previous labs. `PortfolioSummary` shows a portfolio owner's total value and a list of holdings. It uses boolean state to expand and collapse the holdings list — no form involved.
 
+<b>Update</b> data/profiles.ts and add below code in the last
+
+```tsx
+  export type Holding = {
+    ownerName:string|null, holdings:{
+    ticker: string
+    name: string
+    value: number
+    change: number  // percentage, can be negative
+  }[]
+  }
+
+  export type PortfolioSummaryProps = {
+    ownerName: string
+    holdings: Holding[]
+    onClose: () => void;
+  }
+
+   const holdings:Holding[] = [
+               {ownerName: "Ananya Iyer", holdings: [
+                        { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
+                        { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },
+                        { ticker: "NVDA", name: "Nvidia",     value: 4200,  change:  2.1 }
+                      ]},
+                {ownerName: "Alex Chan", holdings:[
+                      { ticker: "MSFT", name: "Microsoft", value: 6500,  change: -0.8 },
+                      { ticker: "NVDA", name: "Apple",     value: 4200,  change:  1.4 },
+                      { ticker: "TCS", name: "Tata",     value: 5200,  change:  2.3 },
+                      { ticker: "RELIANCE", name: "Reliance",     value: 5400,  change:  2.5 },
+                ]},
+                {ownerName: "Riya Mehta", holdings:[
+                      { ticker: "INFY", name: "Infosys",    value: 10550, change:  5.2 },
+                      { ticker: "AAPL", name: "Apple",     value: 6700,  change:  2.2},
+                      { ticker: "GOOG", name: "GOOGLE",     value: 5500,  change:  -0.5 }
+                ]},
+          ]
+```
+
+Create a new file: <mark>src/components/PortfolioSummary.css</mark>
+
+```CSS
+/* Sidebar panel */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: white;
+  color: rgb(12, 116, 50);
+  padding: 1.5rem;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  box-shadow: -4px 0 12px rgba(0,0,0,0.25);
+
+  animation: slideIn 0.3s ease-in-out;
+}
+
+/* Slide animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Backdrop */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+/* Close button */
+.close-btn {
+  align-self: flex-end;
+  border: none;
+  background: transparent;
+  color: rgb(12, 116, 50);;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+```
+
 Create a new file: <mark>src/components/PortfolioSummary.tsx</mark>
 
 ```tsx
 import { useState } from 'react'
+import type { PortfolioSummaryProps } from '../data/profiles';
 
-type Holding = {
-  ticker: string
-  name: string
-  value: number
-  change: number  // percentage, can be negative
-}
+import './PortfolioSummary.css'
 
-type PortfolioSummaryProps = {
-  ownerName: string
-  holdings: Holding[]
-}
 
-function PortfolioSummary({ ownerName, holdings }: PortfolioSummaryProps) {
+function PortfolioSummary({ ownerName, holdings , onClose}: PortfolioSummaryProps) {
 
   // State 1: are the holdings expanded or collapsed?
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
+  const ownerHoldings = holdings.find(owner => owner.ownerName === ownerName)?.holdings;
+  
+
   // Derived value (not state) — computed from holdings on every render
-  const totalValue = holdings.reduce((sum, h) => sum + h.value, 0)
+  const totalValue = ownerHoldings?.reduce((sum, h) => sum + h.value, 0)
 
   return (
-    <div style={{ background: "#1e3a5f", borderRadius: "12px",
-      padding: "1.5rem", color: "white", marginBottom: "1rem" }}>
+     <>
+      {/* Backdrop */}
+      <div className="backdrop" onClick={onClose}></div>
 
-      <h2>{ownerName}</h2>
-      <p style={{ fontSize: "28px", fontWeight: "bold", margin: "8px 0" }}>
-        ${totalValue.toLocaleString()}
-      </p>
+      {/* Sidebar */}
+      <div className="sidebar">
 
-      {/* Toggle button — flips isExpanded on every click */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        style={{ background: "rgba(255,255,255,0.1)", border: "none",
-          color: "white", borderRadius: "8px", padding: "6px 14px",
-          cursor: "pointer", marginTop: "8px" }}
-      >
-        {isExpanded ? "Hide Holdings" : "Show Holdings"}
-      </button>
+        {/* Close button */}
+        <button className="close-btn" onClick={onClose}>✖</button>
 
-      {/* Conditional list — only renders when isExpanded is true */}
-      {isExpanded && (
-        <div style={{ marginTop: "1rem" }}>
-          {holdings.map((holding) => (
-            <div
-              key={holding.ticker}
-              style={{ display: "flex", justifyContent: "space-between",
-                padding: "8px 0",
-                borderBottom: "1px solid rgba(255,255,255,0.1)" }}
-            >
-              <span>
-                <strong>{holding.ticker}</strong> — {holding.name}
-              </span>
-              <span>
-                ${holding.value.toLocaleString()}
-                <span style={{ color: holding.change >= 0 ? "#86efac" : "#fca5a5",
-                  marginLeft: "8px" }}>
-                  {holding.change >= 0 ? "+" : ""}{holding.change}%
+        <h2>{ownerName}</h2>
+
+        <p style={{ fontSize: "28px", fontWeight: "bold", margin: "8px 0" }}>
+          ${totalValue?.toLocaleString()}
+        </p>
+
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          style={{
+            background: "rgb(12, 116, 50)",
+            border: "none",
+            color: "white",
+            borderRadius: "8px",
+            padding: "6px 14px",
+            cursor: "pointer",
+            marginTop: "8px"
+          }}
+        >
+          {isExpanded ? "Hide Holdings" : "Show Holdings"}
+        </button>
+
+        {isExpanded && (
+          <div style={{ marginTop: "1rem" }}>
+            {ownerHoldings?.map((holding) => (
+              <div
+                key={holding.ticker}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "8px 0",
+                  borderBottom: "1px solid rgba(255,255,255,0.1)"
+                }}
+              >
+                <span>
+                  <strong>{holding.ticker}</strong> — {holding.name}
                 </span>
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
-
-    </div>
+                <span>
+                  ${holding.value.toLocaleString()}
+                  <span
+                    style={{
+                      color: holding.change >= 0 ? "rgb(12, 116, 50);" : "#fca5a5",
+                      marginLeft: "8px"
+                    }}
+                  >
+                    {holding.change >= 0 ? "+" : ""}
+                    {holding.change}%
+                  </span>
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 
@@ -513,19 +622,14 @@ export default PortfolioSummary
 Now wire <mark>PortfolioSummary</mark> into <mark>App.tsx</mark> alongside the existing ProfileCard usage:
 
 <pre><code class="language-tsx">import { useState } from 'react'
-import ProfileCard from './components/ProfileCard'
-import PortfolioSummary from './components/PortfolioSummary'
-import { profiles } from './data/profiles';
+import ProfileCard from './components/ProfileCard';
+import { profiles, type Holding, holdings } from './data/profiles';
+import PortfolioSummary from "./components/PortfolioSummary";
 
 function App() {
 
   const [selectedManager, setSelectedManager] = useState&lt;string | null&gt;(null)
 
-<mark>  const alexHoldings = [
-    { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
-    { ticker: "MSFT", name: "Microsoft", value: 6100,  change: -0.8 },
-    { ticker: "NVDA", name: "Nvidia",    value: 10550, change:  5.1 },
-  ]</mark>
 
   return (
     &lt;div style={{ padding: "2rem", maxWidth: "680px", margin: "0 auto" }}&gt;
@@ -554,12 +658,15 @@ function App() {
       ))}
 
 <mark>      {/* Only show summary when Alex is selected */}
-      {selectedManager === "Alex Chen" &amp;&amp; (
-        &lt;PortfolioSummary
-          ownerName="Alex Chen"
-          holdings={alexHoldings}
-        /&gt;
-      )}</mark>
+
+       {selectedManager  &amp;&amp; (
+            &lt;PortfolioSummary
+              ownerName={selectedManager}
+              holdings={holdings}
+              onClose={() => setSelectedManager(null)}
+            /&gt;
+          )}
+      </mark>
 
     &lt;/div&gt;
   )

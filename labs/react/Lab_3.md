@@ -441,7 +441,7 @@ We will now build a component that did not exist in the previous labs. `Portfoli
     onClose: () => void;
   }
 
-   const holdings:Holding[] = [
+  export const holdings:Holding[] = [
                {ownerName: "Ananya Iyer", holdings: [
                         { ticker: "AAPL", name: "Apple",     value: 8200,  change:  2.4 },
                         { ticker: "AMZN", name: "Amazon",     value: 7200,  change:  -2.4 },

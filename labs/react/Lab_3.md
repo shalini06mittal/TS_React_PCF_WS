@@ -588,7 +588,7 @@ function PortfolioSummary({ ownerName, holdings , onClose}: PortfolioSummaryProp
                   ${holding.value.toLocaleString()}
                   <span
                     style={{
-                      color: holding.change >= 0 ? "rgb(12, 116, 50);" : "#fca5a5",
+                      color: holding.change >= 0 ? "rgb(12, 116, 50)" : "#fca5a5",
                       marginLeft: "8px"
                     }}
                   >

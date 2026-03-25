@@ -7,6 +7,8 @@ interface CustomerProps{
     skills:string[]
 }
 
+type FormErrors = Partial<Record<keyof CustomerProps, string>>
+
 export default function AddForm() {
 
     // const submit = (event:React.FormEvent<HTMLFormElement>)=>{
@@ -29,6 +31,7 @@ export default function AddForm() {
 //   const [gender, setGender] = useState<string>('Male');
 
     const [form, setform] = useState<CustomerProps>({name:'', password:'', gender:'male', skills : ['Java']})
+    const [newErrors, setnewErrors] = useState<FormErrors>()
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         const { name , value, type} = e.target;
@@ -72,27 +75,64 @@ export default function AddForm() {
             else
             setform(prev => ({...prev , [name]: value}))
     }
+
+
+    const validateField = (name : keyof CustomerProps, value : unknown): string =>{
+        switch(name){
+            case 'name':
+                if(!String(value).trim()) return "Name is required"
+                if(String(value).trim().length<2) return "Name must be atleast 2 characters long"
+                return '';
+            case 'password':
+                if(!String(value).trim()) return "password is required"
+                if(String(value).trim().length<8) return "password must be atleast 8 characters long"
+                return '';
+            default:
+                return '';
+        }
+    }
+
+    const submit = (e: React.FormEvent)=>{
+            e.preventDefault();
+            const newErrors : FormErrors = {};
+            (Object.keys(form) as (keyof CustomerProps)[]).forEach(key=>{
+                const msg = validateField(key, form[key])
+                if(msg) newErrors[key]= msg
+            })
+            if(Object.keys(newErrors).length > 0){
+                console.log('Form has errors');
+                return;
+                
+            }
+            console.log('form submitted');
+            
+    }
   return (
     <div>
         {/* <form onSubmit={submit}>
             <input type="text" name="username" id="" />
             <input type="submit" value='Submit'/>
         </form> */}
+        
+        <div>
         <label htmlFor="username">Username</label>
         <input type="text" name='name'
             value={form.name}
             //  onChange={handleNameChange}
             onChange={handleChange}
             id="username" />
-
-        
+            {newErrors?.name}
+        </div>
+        <div>
          <label htmlFor="password">password : </label>
         <input type="password" name='password'
             value={form.password} 
             // onChange={handlePasswordChange}
             onChange={handleChange}
             id="password" />
-
+            {newErrors?.password}
+</div>
+<div>
          
         Female: <input type="radio" name='gender'
             value='female' 
@@ -107,7 +147,8 @@ export default function AddForm() {
             onChange={handleChange}
              checked = {form.gender=== 'male'}
             id="gender" />
-
+</div>
+<div>
             {/* CHECKBOX */}
             <label>
                 <input
@@ -130,8 +171,11 @@ export default function AddForm() {
                 />
                 React
             </label>
-        
-        {/* <button onClick={submit}>Submit</button> */}
+        </div>
+        <div>
+             <button onClick={submit}>Submit</button>
+        </div>
+       
         
     </div>
   )

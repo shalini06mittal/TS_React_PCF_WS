@@ -31,7 +31,7 @@ export default function AddForm() {
 //   const [gender, setGender] = useState<string>('Male');
 
     const [form, setform] = useState<CustomerProps>({name:'', password:'', gender:'male', skills : ['Java']})
-    const [newErrors, setnewErrors] = useState<FormErrors>()
+    const [newErrors, setnewErrors] = useState<FormErrors>({})
 
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
         const { name , value, type} = e.target;
@@ -97,12 +97,12 @@ export default function AddForm() {
             const newErrors : FormErrors = {};
             (Object.keys(form) as (keyof CustomerProps)[]).forEach(key=>{
                 const msg = validateField(key, form[key])
-                if(msg) newErrors[key]= msg
+                if(msg) newErrors[key]= msg;
             })
+            setnewErrors(newErrors)
             if(Object.keys(newErrors).length > 0){
                 console.log('Form has errors');
                 return;
-                
             }
             console.log('form submitted');
             

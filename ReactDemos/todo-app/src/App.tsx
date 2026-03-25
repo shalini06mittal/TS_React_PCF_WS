@@ -5,6 +5,7 @@ import { dummyTodos } from './data/todo'
 
 function App() {
 
+  
   return (
     
     <div style={{ maxWidth: "600px", margin: "2rem auto", padding: "0 1rem" }}>

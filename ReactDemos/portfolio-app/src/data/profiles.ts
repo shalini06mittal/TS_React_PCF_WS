@@ -10,6 +10,30 @@ export interface Profile {
   onSelect?: (name: string) => void   // a function prop
 }
 
+// ── New: form-specific interface ──────────────────────────────────────
+// skills is a comma-separated string in the form.
+// We convert it to string[] on submit.
+ 
+export interface ProfileFormState {
+  name:      string
+  role:      string
+  bio:       string
+  skills:    string      // "Equities, Fixed Income, ETFs"
+  isActive:  boolean
+  featured:  boolean
+}
+ 
+export type ProfileFormErrors = Partial<Record<keyof ProfileFormState, string>>
+ 
+// Dropdown options for the Role field
+export const ROLE_OPTIONS = [
+  "Portfolio Manager",
+  "Risk Analyst",
+  "Quant Researcher",
+  "Trading Desk Analyst",
+  "Compliance Officer",
+] as const
+
 
 export const profiles: Profile[] = [
    {

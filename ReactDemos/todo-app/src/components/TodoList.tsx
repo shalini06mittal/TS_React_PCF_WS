@@ -11,7 +11,7 @@ function TodoList() {
   const [todos,     setTodos]     = useState<Todo[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error,     setError]     = useState<string | null>(null)
-
+  const [scores, setScores] = useState<number[]>([1,2,3,4,5]);
   const renderCount = useRef<number>(0)
   renderCount.current += 1   // increment on every render, no re-render triggered
  
@@ -57,7 +57,7 @@ const toggleTodo = (id: number) => {
     // Simulate a 1-second network delay
     const timer = setTimeout(() => {
       try {
-        throw new Error('soemthing is wrong')
+        // throw new Error('soemthing is wrong')
         // In a real app: const data = await fetch("/api/todos")
         setTodos(dummyTodos)
         setIsLoading(false)
@@ -76,8 +76,20 @@ const toggleTodo = (id: number) => {
   if (isLoading) return <p>Loading tasks...</p>
   if (error)     return <p style={{ color: "red" }}>{error}</p>
 
+  
+  const addScores = ()=>{
+    // let data = [...scores];
+    // data.push(100);
+    // setScores([...scores, 54,34,78]);
+    setScores(prev => prev.filter(val => val%2==0));
+
+  }
   return (
     <div>
+      <h1>Spread Operator Demo</h1>
+        <p>{scores.join(' ')}</p>
+        <button onClick={addScores}>Add New Value</button>
+      <hr />
       {/* <AddTodoForm onAdd={(text) => console.log("Will add:", text)} /> */}
       <p style={{ fontSize:"11px", color:"#cbd5e1", textAlign:"right" }}>
         renders: {renderCount.current}

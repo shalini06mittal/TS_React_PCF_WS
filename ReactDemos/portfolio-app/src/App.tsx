@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Timer from "./demos/Timer";
+import AddForm from "./demos/AddForm";
 
 
 function App() {
@@ -23,11 +24,14 @@ function App() {
 
   return (
     <div style={{margin:'10px'}}>
-      <h1>useEffect Demo - Lifecylcle of the component</h1>
+
+      <h1>Form Handling - Controlled COomponent</h1>
+      <AddForm/>
+      {/* <h1>useEffect Demo - Lifecylcle of the component</h1>
        
        <button onClick={toggle}>{label}</button>
        
-       { show && <Timer/>}
+       { show && <Timer/>} */}
        </div>    
   )
 }

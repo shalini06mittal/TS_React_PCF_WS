@@ -327,6 +327,8 @@ function TodoList() {
     // Simulate a 1-second network delay
     const timer = setTimeout(() => {
       try {
+        // UNCOMMENT BELOW LINE TO SEE THE ERROR MESSAGE
+        // throw new Error('soemthing is wrong')
         // In a real app: const data = await fetch("/api/todos")
         setTodos(dummyTodos)
         setIsLoading(false)

@@ -57,7 +57,7 @@ const toggleTodo = (id: number) => {
     // Simulate a 1-second network delay
     const timer = setTimeout(() => {
       try {
-        //throw new Error('soemthing is wrong')
+        throw new Error('soemthing is wrong')
         // In a real app: const data = await fetch("/api/todos")
         setTodos(dummyTodos)
         setIsLoading(false)

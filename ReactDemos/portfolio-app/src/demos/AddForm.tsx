@@ -50,8 +50,11 @@ export default function AddForm() {
         console.log(`name : ${name}, value : ${value}, type : ${type}`);
     }
 
+
+    // Java, React, HTML
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
-        const { name , value, type, checked} = e.target;
+        const { name , value, type, checked} = e.target; 
+        // <input type='text' value='' name='name'/>
         console.log(`name : ${name}, value : ${value}, type : ${type}`);
         
             // if(name=== 'name')
@@ -113,7 +116,8 @@ export default function AddForm() {
             <input type="text" name="username" id="" />
             <input type="submit" value='Submit'/>
         </form> */}
-        
+         
+         {/* <input type="text" name="username" id="" value={username} onChange={(e)=> setUsername(e.target.value)} /> */}
         <div>
         <label htmlFor="username">Username</label>
         <input type="text" name='name'

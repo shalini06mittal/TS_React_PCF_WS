@@ -30,6 +30,16 @@
 
 PCF stands for **PowerApps Component Framework**. It is a modern development framework created by Microsoft that allows developers to build custom, reusable UI controls for Microsoft Power Platform applications — including model-driven apps, canvas apps, and Dynamics 365.
 
+Power Platform – A collection of tools that lets you analyze data, build solutions, automate processes and more. Consists of Power BI, Power Apps, Power Automate and Power Virtual Agents.
+
+“Power Apps is a suite of apps, services, and connectors, as well as a data platform, that provides a rapid development environment to build custom apps for your business needs” (Microsoft docs).
+
+You can create three types of Power Apps; Canvas apps, Model driven apps or Portals.
+
+Power App Component framework fit in the bigger picture is a framework to create (code) components that can be used accross apps. You can add a PCF component to model driven apps, canvas apps and portals. You can also add them in Dynamics 365 forms/views.
+
+Think of PCF components as custom-built building blocks. Just like you can use a pre-built button or text input in an app, with PCF you can design and deploy your own specialized controls that look and behave exactly how you want.
+
 Think of PCF components as custom-built building blocks. Just like you can use a pre-built button or text input in an app, with PCF you can design and deploy your own specialized controls that look and behave exactly how you want.
 
 ### A Simple Analogy

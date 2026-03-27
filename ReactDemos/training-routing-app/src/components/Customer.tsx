@@ -18,13 +18,12 @@ export default function Customer() {
 
     const [cust, setCust] = useState<CustomerProps | undefined>({id:0, name:''});
     const param = useParams<UserParams>();
+    let id:number = parseInt(param.id!);
     useEffect(()=>{
-        
-        let id:number = parseInt(param.id!);
         const c1:CustomerProps|undefined = customers.find(c => c.id === id);
         setCust(c1);
         
-    },[cust])
+    },[id])
     
   return (
     <div>

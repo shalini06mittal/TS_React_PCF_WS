@@ -1,0 +1,17 @@
+.badge-good  { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+  .badge-warn  { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+  .badge-bad   { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+  
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    transition: background 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    color: black;
+    
+    
+  }

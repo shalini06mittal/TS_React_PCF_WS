@@ -1,0 +1,224 @@
+/* ============================================================
+   DynamicTableControl.css
+   PCF Dataset Control — Dynamic Table
+   ============================================================ */
+
+/* ── Wrapper ── */
+.dtc-wrapper {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Toolbar (search bar + column count) ── */
+.dtc-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  gap: 10px;
+}
+
+.dtc-search {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.dtc-search:focus {
+  border-color: #2E75B6;
+  box-shadow: 0 0 0 2px rgba(46, 117, 182, 0.15);
+}
+
+.dtc-toolbar-info {
+  color: #666;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ── Scroll wrapper for wide tables ── */
+.dtc-scroll {
+  overflow-x: auto;
+}
+
+/* ── Table ── */
+table.dtc-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px;
+}
+
+/* ── Header ── */
+.dtc-table thead tr {
+  background: #1F4E79;
+}
+
+.dtc-table th {
+  padding: 10px 14px;
+  text-align: left;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.15s;
+}
+
+.dtc-table th:last-child {
+  border-right: none;
+}
+
+.dtc-table th:hover {
+  background: #2E75B6;
+}
+
+.dtc-table th.dtc-sorted-asc,
+.dtc-table th.dtc-sorted-desc {
+  background: #2E75B6;
+}
+
+/* ── Body rows ── */
+.dtc-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #222;
+}
+
+.dtc-table tbody tr:nth-child(even) td {
+  background: #f7f9fc;
+}
+
+.dtc-table tbody tr:hover td {
+  background: #edf3fb;
+  cursor: pointer;
+}
+
+/* ── Numeric cells ── */
+.dtc-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Badge styles ── */
+.dtc-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.dtc-badge-true {
+  background: #d4edda;
+  color: #155724;
+}
+
+.dtc-badge-false {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.dtc-badge-option {
+  background: #e8f0fe;
+  color: #1a56c4;
+}
+
+/* ── Action column ── */
+.dtc-action-btn {
+  padding: 3px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #ffffff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dtc-action-btn:hover {
+  background: #2E75B6;
+  color: #ffffff;
+  border-color: #2E75B6;
+}
+
+/* ── Empty state ── */
+.dtc-no-data {
+  padding: 36px 24px;
+  text-align: center;
+  color: #888;
+  font-size: 14px;
+  background: #fafafa;
+}
+
+.dtc-loading {
+  padding: 24px;
+  text-align: center;
+  color: #2E75B6;
+  font-size: 13px;
+}
+
+/* ── Pagination ── */
+.dtc-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dtc-pagination-info {
+  font-size: 13px;
+  color: #555;
+}
+
+.dtc-pagination-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dtc-page-btn {
+  padding: 5px 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #ffffff;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.dtc-page-btn:hover:not(:disabled) {
+  background: #2E75B6;
+  color: #ffffff;
+  border-color: #2E75B6;
+}
+
+.dtc-page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.dtc-page-label {
+  padding: 5px 8px;
+  font-size: 13px;
+  color: #444;
+  white-space: nowrap;
+}

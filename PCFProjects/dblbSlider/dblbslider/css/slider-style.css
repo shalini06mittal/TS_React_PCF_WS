@@ -1,0 +1,57 @@
+/* slider-styles.css */
+.custom-slider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, #f6dfdf, #ee4031);
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .custom-slider:hover {
+    background: linear-gradient(to right, #b17474, #ac2317);
+  }
+  
+  .custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 20px;
+    height: 20px;
+    background: #e38d47;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  
+  .custom-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #005a9e;
+  }
+  
+  .custom-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #0078d7;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  
+  .custom-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #005a9e;
+  }
+  
+  .slider-label {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+  }
+  

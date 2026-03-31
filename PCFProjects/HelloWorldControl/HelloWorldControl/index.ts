@@ -43,6 +43,7 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
         
         this._outputText = context.parameters.inputText?.raw?? "Default";
 
+        //context.parameters.outputText1.setValue(this._outputText);
         this._greeting = document.createElement('div');
         
         // Create a styled greeting element              // ← highlighted

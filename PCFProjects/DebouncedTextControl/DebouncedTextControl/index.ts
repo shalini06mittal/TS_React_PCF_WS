@@ -43,8 +43,9 @@ export class DebouncedTextControl implements ComponentFramework.StandardControl<
     this._input.style.fontSize = "14px";
 
     // Set initial value
-    this._currentValue = context.parameters.sampleProperty.raw || "";
-    this._input.value = this._currentValue;
+    this._currentValue = "welcome"; // hello
+    // this._input.value = this._currentValue;
+    this._input.value = 'welcome from init';
 
     // Attach debounced handler
     this._input.addEventListener("input", this._onTextChange.bind(this));
@@ -57,14 +58,17 @@ export class DebouncedTextControl implements ComponentFramework.StandardControl<
   // -----------------------------------
   public updateView(context: ComponentFramework.Context<IInputs>): void {
 
-    const newValue = context.parameters.sampleProperty.raw || "";
+    console.log('update ciew called');
+    const newValue = context.parameters.sampleProperty.raw || ""; // Hello World
     console.log(`New Value : ${newValue} , Current Value : ${this._currentValue}`);
-    
+  //  setTimeout(() => {
+       if (newValue !== this._currentValue) {
+          this._currentValue = newValue;
+          this._input.value = newValue;
+        }
+    //}, 2000);
     // Avoid overwriting while typing
-    if (newValue !== this._currentValue) {
-      this._currentValue = newValue;
-      this._input.value = newValue;
-    }
+   
   }
 
   // -----------------------------------
@@ -83,7 +87,7 @@ export class DebouncedTextControl implements ComponentFramework.StandardControl<
 
     this._currentValue = (e.target as HTMLInputElement).value;
     console.log(`on text change ${this._currentValue}`);
-    
+   // this._notifyOutputChanged();
 
     // Cancel previous timer
     if (this._debounceTimer) {

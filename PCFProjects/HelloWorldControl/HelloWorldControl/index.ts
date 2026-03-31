@@ -7,6 +7,7 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
     private _context : ComponentFramework.Context<IInputs>;
     private _outputText:string;
     private _notifyOutputChanged:() => void;
+   // private _text:string;
 
     /**
      * Empty constructor.
@@ -43,7 +44,7 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
         this._outputText = context.parameters.inputText?.raw?? "Default";
 
         this._greeting = document.createElement('div');
-        this._greeting.innerText = 'Welcome';
+        
         // Create a styled greeting element              // ← highlighted
         this._greeting.style.padding = '16px';          // ← highlighted
         this._greeting.style.background = 'linear-gradient(135deg, #667eea, #764ba2)'; // ← highlighted
@@ -54,6 +55,11 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
         this._greeting.style.fontWeight = this._context.parameters.samplePropertyTextWeight.raw ??'bold';       // ← highlighted
         this._greeting.style.textAlign = 'center';      // ← highlighted
         this._greeting.innerText = `Hello, Guest! 👋`;  // ← highlighted
+
+        this._greeting.addEventListener('click', () => {
+            alert('Greeting clicked!');
+            this._notifyOutputChanged();
+        });
 
         const style = document.createElement('style');
 
@@ -97,12 +103,10 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
         this._greeting.style.fontSize = this._context.parameters.samplePropertyTextSize.raw ??'20px';         // ← highlighted
         this._greeting.style.fontWeight = this._context.parameters.samplePropertyTextWeight.raw ??'bold'; 
         
-        const newValue = (this._context.parameters.inputText.raw ?? "") + " at " + new Date().toLocaleTimeString();
-
+        const newValue = (this._context.parameters.inputText.raw || "Time: ") + " at " + new Date().toLocaleTimeString();
         this._outputText = newValue;
         console.log('output text ' + this._outputText);
-        this._notifyOutputChanged();
-        
+       // this._notifyOutputChanged();
     }
 
 
@@ -113,7 +117,8 @@ export class HelloWorldControl implements ComponentFramework.StandardControl<IIn
     public getOutputs(): IOutputs {
         console.log('get outputs called');
         return {
-            outputText: this._outputText
+            outputText: this._outputText,
+            samplePropertyText: 'Update bound property from component',
         };
     }
 

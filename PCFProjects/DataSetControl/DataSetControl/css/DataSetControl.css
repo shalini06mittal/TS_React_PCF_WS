@@ -1,0 +1,97 @@
+/* 🔹 Container */
+.dataset-grid-container {
+    font-family: "Segoe UI", Arial, sans-serif;
+    padding: 12px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+/* 🔹 Loader */
+.loading {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 🔹 Table */
+.pcf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 🔹 Table Header */
+.pcf-table thead {
+    background-color: #f3f2f1;
+}
+
+.pcf-table th {
+    text-align: left;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #323130;
+    border-bottom: 2px solid #edebe9;
+}
+
+/* 🔹 Table Rows */
+.pcf-table td {
+    padding: 10px;
+    font-size: 13px;
+    color: #323130;
+    border-bottom: 1px solid #edebe9;
+}
+
+/* 🔹 Hover Effect */
+.pcf-table tbody tr:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+/* 🔹 Alternate Row Coloring */
+.pcf-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* 🔹 Paging Controls Container */
+.paging-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #edebe9;
+}
+
+/* 🔹 Buttons */
+.paging-controls button {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* 🔹 Disabled Button */
+.paging-controls button:disabled {
+    background-color: #c8c6c4;
+    cursor: not-allowed;
+}
+
+/* 🔹 Button Hover */
+.paging-controls button:hover:not(:disabled) {
+    background-color: #005a9e;
+}
+
+/* 🔹 Page Info Text */
+.paging-controls span {
+    font-size: 13px;
+    color: #605e5c;
+}

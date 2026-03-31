@@ -10,6 +10,9 @@ export const HelloWorld: React.FC<IHelloWorldProps> = ({name, onNameChange}) => 
   
   const [inputValue, setInputValue] = React.useState<string|undefined>(name)
 
+  React.useEffect(() => {
+    setInputValue(name);
+  }, [name]);
     return (
       <FluentProvider theme={webLightTheme}>
         
